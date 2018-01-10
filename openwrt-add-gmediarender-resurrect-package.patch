@@ -19,14 +19,15 @@ index 0000000..696730e
 +
 +include $(TOPDIR)/rules.mk
 +
-+PKG_NAME:=gmediarender
-+PKG_VERSION:=2013-12-04
++PKG_NAME:=gmrender-resurrect
++EXE_NAME:=gmediarender
++PKG_VERSION:=2017-12-11
 +PKG_RELEASE=$(PKG_SOURCE_VERSION)
 +
 +PKG_SOURCE_PROTO:=git
-+PKG_SOURCE_URL:=git@github.com:hzeller/gmrender-resurrect.git
++PKG_SOURCE_URL:=https://github.com/hzeller/gmrender-resurrect.git
 +PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-+PKG_SOURCE_VERSION:=e2eb7852eebea95c69c79c43a1e4d5f52409930f
++PKG_SOURCE_VERSION:=704b182cf530b11922484b428c3badd4ae71550c
 +PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 +
 +PKG_FIXUP:=autoreconf
@@ -39,7 +40,7 @@ index 0000000..696730e
 +define Package/gmediarender
 +  SECTION:=multimedia
 +  CATEGORY:=Multimedia
-+  DEPENDS:= +gstreamer +glib2 +libupnp
++  DEPENDS:= +gstreamer1 +glib2 +libupnp
 +  TITLE:=A Headless UPnP Renderer
 +endef
 +
@@ -50,14 +51,15 @@ index 0000000..696730e
 +endef
 +
 +CONFIGURE_ARGS+= \
++	CFLAGS="-std=c99" \
 +	--with-build-cc="$(HOSTCC)" \
 +	--prefix="\usr"
 +
 +define Package/gmediarender/install
 +	$(INSTALL_DIR) $(1)/usr/sbin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/$(PKG_NAME) $(1)/usr/sbin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/$(EXE_NAME) $(1)/usr/sbin/
 +	$(INSTALL_DIR) $(1)/etc/init.d
-+	$(CP) 		   $(PKG_BUILD_DIR)/scripts/init.d/$(PKG_NAME)er $(1)/etc/init.d/$(PKG_NAME)
++	$(CP) 		   $(PKG_BUILD_DIR)/scripts/init.d/$(EXE_NAME)er $(1)/etc/init.d/$(EXE_NAME)
 +endef
 +
 +$(eval $(call BuildPackage,gmediarender))
