@@ -2,31 +2,27 @@
 
 Port [gmediarender-resurrect](https://github.com/hzeller/gmrender-resurrect) to OpenWrt.
 
-## HOW TO
+Derived from [JiapengLi/OpenWrt-gmediarender](https://github.com/JiapengLi/OpenWrt-gmediarender)
 
-	cd ~
-	git clone https://github.com/JiapengLi/OpenWrt-gmediarender.git
-	cd openwrt/trunk
+## HOW TO
+    cd ~
+	git clone https://github.com/whc2001/OpenWrt-gmediarender.git
+	cd [Your OpenWrt Dir]
 	./scripts/feeds update -a
 	./scripts/feeds install -a
-	cd feeds/packages
-	patch -p1 < ~/OpenWrt-gmediarender/openwrt-add-gmediarender-resurrect-package.patch
+	mkdir feeds/packages/multimedia/gmediarender
+	cp -f ~/OpenWrt-gmediarender/Makefile feeds/packages/multimedia/gmediarender/
 	./scripts/feeds update -i
 	./scripts/feeds install gmediarender
-	
 	make menuconfig
-	// choose the right platform
-	// Select gmediarender in Multimedia --> gmediarender
+	
+** Choose the right platform **
+** Select gmediarender in Multimedia --> gmediarender **
+
+	make V=s
 
 ###Build Single Package
+** \* Run *make V=s*  first**
 
-	make package/gmediarender/compile V=s
-	make package/gmediarender/install V=s
 	make package/index
-
-	//clean and compile
 	make package/gmediarender/{clean,compile} V=s
-
-## TO DO
-
-Test and send these patch to OpenWrt-devel. 
